@@ -21,7 +21,7 @@ var kafkaSEnder = kafkaclient.NewSender(&kafkaConf)
 func MandateRequest(request []byte) {
 	fmt.Println(request)
 
-	log.Printf(string(request))
+	// log.Printf(string(request))
 	fmt.Sprintf(string(request))
 }
 
