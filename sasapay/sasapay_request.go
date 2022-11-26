@@ -7,7 +7,6 @@ import (
 
 	kafkaclient "github.com/Genialngash/sasapay-mandate-microservice/kafkaClient"
 	"github.com/robfig/cron/v3"
-	"github.com/segmentio/kafka-go"
 )
 
 var kafkaConf = kafkaclient.Conf{
@@ -17,7 +16,7 @@ var kafkaConf = kafkaclient.Conf{
 }
 
 // kafka sender instance
-var kafkaSEnder = kafka.NewSender(&kafkaConf)
+var kafkaSEnder = kafkaclient.NewSender(&kafkaConf)
 
 func MandateRequest(request []byte) {
 	fmt.Println(request)
@@ -40,7 +39,8 @@ func checkForJobs() {
 	defer c.Stop()
 }
 func sendCheckQue() {
-	sendKafkaErr := kafkaSEnder.Send("IO-01-PAYU-TopupFix-DSTV-IoPaymentRequest-v1", payuResBuff.Bytes())
+	checkMessage := "hello ! are there jobs"
+	sendKafkaErr := kafkaSEnder.Send("sasapay-mandate-topic", []byte(checkMessage))
 	if sendKafkaErr != nil {
 		log.Println(sendKafkaErr)
 
