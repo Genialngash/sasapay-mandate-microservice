@@ -1,10 +1,10 @@
 package kafkaclient
 
 import (
+	"fmt"
 	"log"
 	"testing"
 
-	"github.com/Genialngash/sasapay-mandate-microservice/sasapay"
 )
 
 var kafkaConf = Conf{
@@ -32,7 +32,7 @@ func TestKafkaReceiver(t *testing.T) {
 
 		"sasapay-mandate-topic",
 	}
-	ioPaymentResRecvr := NewReceiver(&kafkaConf, ioTopics, sasapay.MandateRequest)
+	ioPaymentResRecvr := NewReceiver(&kafkaConf, ioTopics,printReceivedMessages)
 
 	
 	ioPaymentResRecvr.ReceiveAndHandle()
